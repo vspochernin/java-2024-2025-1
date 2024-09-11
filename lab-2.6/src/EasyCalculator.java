@@ -5,10 +5,10 @@ public class EasyCalculator {
         Scanner scanner = new Scanner(System.in);
 
         int firstOperand = readFirstOperand(scanner);
-        String command = readCommand(scanner);
+        String operation = operation(scanner);
         int secondOperand = readSecondOperand(scanner);
 
-        calculateAndPrintResult(firstOperand, secondOperand, command);
+        calculateAndPrintResult(firstOperand, operation, secondOperand);
     }
 
     private static int readFirstOperand(Scanner scanner) {
@@ -21,13 +21,13 @@ public class EasyCalculator {
         return scanner.nextInt();
     }
 
-    private static String readCommand(Scanner scanner) {
-        System.out.print("Введите команду (+, -, *, /): ");
+    private static String operation(Scanner scanner) {
+        System.out.print("Введите операцию (+, -, *, /): ");
         return scanner.next();
     }
 
-    private static void calculateAndPrintResult(int firstOperand, int secondOperand, String command) {
-        switch (command) {
+    private static void calculateAndPrintResult(int firstOperand, String operation, int secondOperand) {
+        switch (operation) {
             case "+" -> System.out.println("Результат: " + (firstOperand + secondOperand));
             case "-" -> System.out.println("Результат: " + (firstOperand - secondOperand));
             case "*" -> System.out.println("Результат: " + (firstOperand * secondOperand));
