@@ -12,18 +12,18 @@ public class EasyCalculator {
     }
 
     private static int readFirstOperand(Scanner scanner) {
-        System.out.print("Введите первый операнд (целое число): ");
+        System.out.print("Enter first operant (integer): ");
         return scanner.nextInt();
+    }
+
+    private static String operation(Scanner scanner) {
+        System.out.print("Enter operation (+, -, *, /): ");
+        return scanner.next();
     }
 
     private static int readSecondOperand(Scanner scanner) {
         System.out.print("Введите второй операнд (целое число): ");
         return scanner.nextInt();
-    }
-
-    private static String operation(Scanner scanner) {
-        System.out.print("Введите операцию (+, -, *, /): ");
-        return scanner.next();
     }
 
     private static void calculateAndPrintResult(int firstOperand, String operation, int secondOperand) {
@@ -32,7 +32,7 @@ public class EasyCalculator {
             case "-" -> System.out.println("Результат: " + (firstOperand - secondOperand));
             case "*" -> System.out.println("Результат: " + (firstOperand * secondOperand));
             case "/" -> System.out.println("Результат: " + (firstOperand / secondOperand));
-            default -> System.out.println("Введена некорректная команда.");
+            default -> System.out.println("There is invalid operation.");
         }
     }
 }
