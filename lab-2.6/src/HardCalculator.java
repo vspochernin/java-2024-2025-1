@@ -69,6 +69,6 @@ public class HardCalculator {
     }
 
     private static void printResult(int result) {
-        System.out.println("Результат: " + result);
+        System.out.println("Result: " + result);
     }
 }

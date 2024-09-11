@@ -22,16 +22,16 @@ public class EasyCalculator {
     }
 
     private static int readSecondOperand(Scanner scanner) {
-        System.out.print("Введите второй операнд (целое число): ");
+        System.out.print("Enter second operand (integer): ");
         return scanner.nextInt();
     }
 
     private static void calculateAndPrintResult(int firstOperand, String operation, int secondOperand) {
         switch (operation) {
-            case "+" -> System.out.println("Результат: " + (firstOperand + secondOperand));
-            case "-" -> System.out.println("Результат: " + (firstOperand - secondOperand));
-            case "*" -> System.out.println("Результат: " + (firstOperand * secondOperand));
-            case "/" -> System.out.println("Результат: " + (firstOperand / secondOperand));
+            case "+" -> System.out.println("Result: " + (firstOperand + secondOperand));
+            case "-" -> System.out.println("Result: " + (firstOperand - secondOperand));
+            case "*" -> System.out.println("Result: " + (firstOperand * secondOperand));
+            case "/" -> System.out.println("Result: " + (firstOperand / secondOperand));
             default -> System.out.println("There is invalid operation.");
         }
     }
