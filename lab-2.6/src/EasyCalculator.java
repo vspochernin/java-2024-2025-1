@@ -1,19 +1,21 @@
+import java.util.Locale;
 import java.util.Scanner;
 
 public class EasyCalculator {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        scanner.useLocale(Locale.US); // Enable "." double separator.
 
-        int firstOperand = readFirstOperand(scanner);
+        double firstOperand = readFirstOperand(scanner);
         String operation = operation(scanner);
-        int secondOperand = readSecondOperand(scanner);
+        double secondOperand = readSecondOperand(scanner);
 
         calculateAndPrintResult(firstOperand, operation, secondOperand);
     }
 
-    private static int readFirstOperand(Scanner scanner) {
-        System.out.print("Enter first operant (integer): ");
-        return scanner.nextInt();
+    private static double readFirstOperand(Scanner scanner) {
+        System.out.print("Enter first operand: ");
+        return scanner.nextDouble();
     }
 
     private static String operation(Scanner scanner) {
@@ -21,12 +23,12 @@ public class EasyCalculator {
         return scanner.next();
     }
 
-    private static int readSecondOperand(Scanner scanner) {
-        System.out.print("Enter second operand (integer): ");
-        return scanner.nextInt();
+    private static double readSecondOperand(Scanner scanner) {
+        System.out.print("Enter second operand: ");
+        return scanner.nextDouble();
     }
 
-    private static void calculateAndPrintResult(int firstOperand, String operation, int secondOperand) {
+    private static void calculateAndPrintResult(double firstOperand, String operation, double secondOperand) {
         switch (operation) {
             case "+" -> System.out.println("Result: " + (firstOperand + secondOperand));
             case "-" -> System.out.println("Result: " + (firstOperand - secondOperand));

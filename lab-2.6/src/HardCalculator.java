@@ -1,12 +1,14 @@
+import java.util.Locale;
 import java.util.Scanner;
 
 public class HardCalculator {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        scanner.useLocale(Locale.US); // Enable "." double separator.
 
-        int firstOperand = 0;
+        double firstOperand = 0;
         String operation = "C";
-        int secondOperand;
+        double secondOperand;
 
         while (true) {
             if (operation.equals("C")) {
@@ -29,9 +31,9 @@ public class HardCalculator {
         }
     }
 
-    private static int readFirstOperand(Scanner scanner) {
-        System.out.print("Enter first operand (integer): ");
-        return scanner.nextInt();
+    private static double readFirstOperand(Scanner scanner) {
+        System.out.print("Enter first operand: ");
+        return scanner.nextDouble();
     }
 
     private static String readOperation(Scanner scanner) {
@@ -53,12 +55,12 @@ public class HardCalculator {
         };
     }
 
-    private static int readSecondOperand(Scanner scanner) {
-        System.out.print("Enter second operand (integer): ");
-        return scanner.nextInt();
+    private static double readSecondOperand(Scanner scanner) {
+        System.out.print("Enter second operand: ");
+        return scanner.nextDouble();
     }
 
-    private static int calculate(int firstOperand, String operation, int secondOperand) {
+    private static double calculate(double firstOperand, String operation, double secondOperand) {
         return switch (operation) {
             case "+" -> firstOperand + secondOperand;
             case "-" -> firstOperand - secondOperand;
@@ -68,7 +70,7 @@ public class HardCalculator {
         };
     }
 
-    private static void printResult(int result) {
+    private static void printResult(double result) {
         System.out.println("Result: " + result);
     }
 }
