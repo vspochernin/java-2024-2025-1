@@ -1,4 +1,4 @@
-package ru.vspochernin;
+package ru.vspochernin.utils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,9 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/**
- * @author pochernin-vla
- */
 public class KeyReaderUtils {
 
     public static String readKeyFromFile(String fileName) {
