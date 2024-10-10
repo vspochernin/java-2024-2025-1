@@ -288,3 +288,4 @@ Temporary Items
 *.icloud
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,intellij+all,intellij+iml,java,macos
+key.txt
