@@ -5,6 +5,7 @@ import ru.vspochernin.model.Day;
 import ru.vspochernin.model.Forecast;
 import ru.vspochernin.model.Parts;
 import ru.vspochernin.model.Weather;
+import ru.vspochernin.model.WeatherInput;
 import ru.vspochernin.utils.KeyReadingUtils;
 import ru.vspochernin.utils.WeatherParsingUtils;
 
@@ -14,13 +15,11 @@ public class Main {
     private static final String KEY_FILE_NAME = "key.txt";
 
     public static void main(String[] args) {
-        double lat = 55.75;
-        double lon = 37.62;
-        int limit = 5;
-
-        String weatherJson = getWeatherJson(lat, lon, limit);
+        WeatherInput weatherInput = WeatherInput.getHardcoded();
+        String weatherJson = getWeatherJson(weatherInput);
         Weather weather = WeatherParsingUtils.parseWeather(weatherJson);
 
+        int limit = weatherInput.limit();
         int temp = weather.fact().temp();
         double average = weather.forecasts().stream()
                 .map(Forecast::parts)
@@ -28,17 +27,18 @@ public class Main {
                 .map(Day::temp)
                 .mapToInt(Integer::valueOf)
                 .average()
-                .orElseThrow(() -> new IllegalStateException("There is no forecasts for weather with limit"));
+                .orElseThrow(() -> new IllegalStateException(
+                        String.format("There is no forecasts for weather with limit %s: ", limit)));
 
-        System.out.println("Weather json string: " + weatherJson);
-        System.out.println("Temperature (degrees Celsius): " + temp);
-        System.out.printf("Average temperature for limit %s is %s degrees Celsius\n", limit, average);
+        System.out.printf("Weather json string: %s\n", weatherJson);
+        System.out.printf("Current temperature: %s degrees Celsius\n", temp);
+        System.out.printf("Average temperature for limit %s is %.2f degrees Celsius\n", limit, average);
     }
 
-    private static String getWeatherJson(double lat, double lon, int limit) {
+    private static String getWeatherJson(WeatherInput weatherInput) {
         String key = KeyReadingUtils.readKeyFromFile(KEY_FILE_NAME);
         try (YandexWeatherApiClient apiClient = new YandexWeatherApiClient(key)) {
-            return apiClient.getWeatherJson(lat, lon, limit);
+            return apiClient.getWeatherJson(weatherInput);
         }
     }
 }

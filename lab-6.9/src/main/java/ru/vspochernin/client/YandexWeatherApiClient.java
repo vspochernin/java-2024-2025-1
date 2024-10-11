@@ -8,6 +8,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import ru.vspochernin.model.WeatherInput;
+
 public class YandexWeatherApiClient implements Closeable {
 
     private static final String URL_FORMAT = "https://api.weather.yandex.ru/v2/forecast?lat=%s&lon=%s&limit=%s";
@@ -21,8 +23,11 @@ public class YandexWeatherApiClient implements Closeable {
         this.httpClient = HttpClient.newHttpClient();
     }
 
-    public String getWeatherJson(double lat, double lon, int limit) {
-        HttpRequest httpRequest = buildHttpRequest(URL_FORMAT.formatted(lat, lon, limit));
+    public String getWeatherJson(WeatherInput weatherInput) {
+        HttpRequest httpRequest = buildHttpRequest(URL_FORMAT.formatted(
+                weatherInput.lat(),
+                weatherInput.lon(),
+                weatherInput.limit()));
         return getHttpResponseBody(httpRequest);
     }
 

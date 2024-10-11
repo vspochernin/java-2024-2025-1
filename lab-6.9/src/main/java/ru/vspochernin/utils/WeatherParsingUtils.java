@@ -17,7 +17,7 @@ public class WeatherParsingUtils {
         try {
             return OBJECT_MAPPER.readValue(json, Weather.class);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(String.format("Error parsing json %s to Weather object", json), e);
         }
     }
 }

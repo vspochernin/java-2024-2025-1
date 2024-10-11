@@ -21,13 +21,13 @@ public class KeyReadingUtils {
 
     private static void validateFile(Path keyFile) {
         if (!Files.exists(keyFile)) {
-            throw new RuntimeException("File not found: " + keyFile.toAbsolutePath());
+            throw new RuntimeException(String.format("Key file %s not found", keyFile));
         }
         if (!Files.isRegularFile(keyFile)) {
-            throw new RuntimeException("File is not a regular file: " + keyFile.toAbsolutePath());
+            throw new RuntimeException(String.format("Key file %s is not a regular file", keyFile));
         }
         if (!Files.isReadable(keyFile)) {
-            throw new RuntimeException("File is not readable: " + keyFile.toAbsolutePath());
+            throw new RuntimeException(String.format("Key file %s is not readable", keyFile));
         }
     }
 
@@ -36,14 +36,14 @@ public class KeyReadingUtils {
         try (BufferedReader br = new BufferedReader(new FileReader(keyFile.toFile()))) {
             key = br.readLine();
         } catch (IOException e) {
-            throw new RuntimeException("Error reading key file: " + e.getMessage());
+            throw new RuntimeException(String.format("Error reading key file: %s", keyFile), e);
         }
         return key;
     }
 
     private static void validateKey(String key, Path keyFile) {
         if (key == null || key.isEmpty()) {
-            throw new RuntimeException("Key file is empty: " + keyFile.toAbsolutePath());
+            throw new RuntimeException(String.format("Key file %s is empty", keyFile));
         }
     }
 }
