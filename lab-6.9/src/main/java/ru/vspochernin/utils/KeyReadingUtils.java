@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class KeyReaderUtils {
+public class KeyReadingUtils {
 
     public static String readKeyFromFile(String fileName) {
         Path keyFile = Paths.get(fileName);

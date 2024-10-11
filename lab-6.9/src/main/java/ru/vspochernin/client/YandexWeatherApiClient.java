@@ -10,8 +10,7 @@ import java.net.http.HttpResponse;
 
 public class YandexWeatherApiClient implements Closeable {
 
-    public static final String URL_FORMAT = "https://api.weather.yandex.ru/v2/forecast?lat=%s&lon=%s";
-    public static final String LIMIT_URL_FORMAT = "https://api.weather.yandex.ru/v2/forecast?lat=%s&lon=%s&limit=%s";
+    public static final String URL_FORMAT = "https://api.weather.yandex.ru/v2/forecast?lat=%s&lon=%s&limit=%s";
     public static final String KEY_HEADER = "X-Yandex-Weather-Key";
 
     private final String key;
@@ -21,13 +20,8 @@ public class YandexWeatherApiClient implements Closeable {
         this.key = key;
     }
 
-    public String getWeatherJsonString(double lat, double lon) {
-        HttpRequest httpRequest = buildHttpRequest(URL_FORMAT.formatted(lat, lon));
-        return getHttpResponseBody(httpRequest);
-    }
-
     public String getWeatherJsonString(double lat, double lon, int limit) {
-        HttpRequest httpRequest = buildHttpRequest(LIMIT_URL_FORMAT.formatted(lat, lon, limit));
+        HttpRequest httpRequest = buildHttpRequest(URL_FORMAT.formatted(lat, lon, limit));
         return getHttpResponseBody(httpRequest);
     }
 
