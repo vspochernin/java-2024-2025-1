@@ -10,17 +10,18 @@ import java.net.http.HttpResponse;
 
 public class YandexWeatherApiClient implements Closeable {
 
-    public static final String URL_FORMAT = "https://api.weather.yandex.ru/v2/forecast?lat=%s&lon=%s&limit=%s";
-    public static final String KEY_HEADER = "X-Yandex-Weather-Key";
+    private static final String URL_FORMAT = "https://api.weather.yandex.ru/v2/forecast?lat=%s&lon=%s&limit=%s";
+    private static final String KEY_HEADER = "X-Yandex-Weather-Key";
 
     private final String key;
-    private final HttpClient httpClient = HttpClient.newHttpClient();
+    private final HttpClient httpClient;
 
     public YandexWeatherApiClient(String key) {
         this.key = key;
+        this.httpClient = HttpClient.newHttpClient();
     }
 
-    public String getWeatherJsonString(double lat, double lon, int limit) {
+    public String getWeatherJson(double lat, double lon, int limit) {
         HttpRequest httpRequest = buildHttpRequest(URL_FORMAT.formatted(lat, lon, limit));
         return getHttpResponseBody(httpRequest);
     }
@@ -33,25 +34,26 @@ public class YandexWeatherApiClient implements Closeable {
                     .header(KEY_HEADER, key)
                     .build();
         } catch (URISyntaxException e) {
-            throw new RuntimeException("Incorrect URI: " + e.getMessage());
+            throw new RuntimeException(String.format("Incorrect URI: %s", uri), e);
         }
     }
 
     private String getHttpResponseBody(HttpRequest httpRequest) {
         try {
             HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-
             validateHttpResponse(httpResponse);
-
             return httpResponse.body();
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error getting http response", e);
         }
     }
 
     private static void validateHttpResponse(HttpResponse<String> httpResponse) {
         if (httpResponse.statusCode() != 200) {
-            throw new RuntimeException("Unexpected response code: " + httpResponse.statusCode());
+            throw new RuntimeException(String.format(
+                    "Unexpected response code: %s, body: %s",
+                    httpResponse.statusCode(),
+                    httpResponse.body()));
         }
     }
 

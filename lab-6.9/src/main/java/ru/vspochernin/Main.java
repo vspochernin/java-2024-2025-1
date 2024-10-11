@@ -38,7 +38,7 @@ public class Main {
     private static String getWeatherJson(double lat, double lon, int limit) {
         String key = KeyReadingUtils.readKeyFromFile(KEY_FILE_NAME);
         try (YandexWeatherApiClient apiClient = new YandexWeatherApiClient(key)) {
-            return apiClient.getWeatherJsonString(lat, lon, limit);
+            return apiClient.getWeatherJson(lat, lon, limit);
         }
     }
 }
